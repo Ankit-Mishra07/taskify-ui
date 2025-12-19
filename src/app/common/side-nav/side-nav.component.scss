@@ -1,0 +1,30 @@
+@import "../../../config.scss";
+
+.side-nav-container {
+
+    width: 6%;
+    padding: 20px 2px;
+    position: fixed;
+    top: 76px;
+    left: 0;
+    bottom: 0;
+    background-color: $primary-color;
+    box-shadow: $shadow2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+}
+.side-nav-btn {
+    line-height: 16px;
+    padding: 0 12px;
+    min-width: 60px;
+    span {
+        font-size: 12px;
+    }
+    &:hover {
+        background-color: $secondary-color;
+        color: $button-hover-background;
+    }
+}

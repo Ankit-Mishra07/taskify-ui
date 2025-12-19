@@ -1,3 +1,31 @@
-<p>
-  navbar works!
-</p>
+<nav class="nav-head">
+  <div>
+    <app-logo></app-logo>
+  </div>
+
+  <div class="search-create-box">
+      <mat-form-field class="search-input-form-field">
+        <button mat-button matPrefix mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+        <input matInput placeholder="Search task">
+        <button mat-button matSuffix mat-icon-button>
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <button class="primary-button create-task-btn"><mat-icon>add</mat-icon> Create</button>
+  </div>
+
+  
+  <div class="nav-options">
+    <div>
+      <div #profileIcon [matMenuTriggerFor]="menu" class="firstletterProfile">{{firstLetter}}</div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="profile-menu">{{userDetail.userName}}</button>
+        <button mat-menu-item class="profile-menu">{{userDetail.email}}</button>
+        <button (click)="logout()" mat-menu-item class="profile-menu logout">Logout</button>
+      </mat-menu>
+    </div>
+  </div>
+</nav>
+<app-side-nav></app-side-nav>

@@ -14,6 +14,14 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { LogoComponent } from './common/logo/logo.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToasterModule } from 'angular2-toaster';
+import { MatMenuModule } from '@angular/material/menu';
+import { SideNavComponent } from './common/side-nav/side-nav.component';
+import { MatIconModule } from '@angular/material';
+import { EmployeeComponent } from './pages/employee/employee.component';
+import { EmployeeCreateEditComponent } from './components/employee-create-edit/employee-create-edit.component';
+import { LoaderComponent } from './common/loader/loader.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -22,6 +30,10 @@ import { ToasterModule } from 'angular2-toaster';
     DashboardComponent,
     LoginComponent,
     LogoComponent,
+    SideNavComponent,
+    EmployeeComponent,
+    EmployeeCreateEditComponent,
+    LoaderComponent,
 
   ],
   imports: [
@@ -34,6 +46,10 @@ import { ToasterModule } from 'angular2-toaster';
     MatButtonModule,
     MatCardModule,
     HttpClientModule,
+    MatMenuModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
     ToasterModule.forRoot()
   ],
   providers: [],

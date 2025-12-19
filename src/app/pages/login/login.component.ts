@@ -53,6 +53,8 @@ export class LoginComponent implements OnInit {
         this._commonService.setCookie('user_access', response.data.token);
         this._commonService.setItemToLocal('user_data', response.data.user);
         this._router.navigateByUrl('/')
+      }else {
+        this.toasterService.pop('error', response.message);
       }
     })
   }

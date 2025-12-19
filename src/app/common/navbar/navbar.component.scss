@@ -1,0 +1,65 @@
+@import "../../../config.scss";
+
+.nav-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    height: 75px;
+    background-color: $primary-color;
+    box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+}
+
+.search-create-box {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    width: 40%;
+}
+.search-input-form-field {
+    width: 70%;
+}
+.create-task-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12x;
+    padding: 6px 12px;
+    box-shadow: none;
+}
+
+.nav-options {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.firstletterProfile {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    border: 1px solid $secondary-color;
+    background-color: $white-color;
+    color: rgb(random(255), random(255), random(255));
+    font-size: 24px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.8s ease;
+    font-weight: bold;
+    &:hover {
+        background-color: $secondary-color;
+    }
+}
+.profile-menu {
+    font-size: 16px;
+    color: $black-color;
+    &:hover {
+        background-color: $primary-color;
+    }
+}
+.logout {
+    color: $danger-color;
+}
