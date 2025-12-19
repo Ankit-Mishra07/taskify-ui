@@ -5,7 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class CommonService {
 
-  constructor() { }
+  statusList = [];
+
+  constructor(
+  ) { }
   getCookie(name) {
     let value = "; " + document.cookie;
     let parts = value.split("; " + name + "=");
@@ -28,6 +31,9 @@ export class CommonService {
   }
   getUserDetails() {
     return this.getItemFromLocal('user_data');
+  }
+  getUserId() {
+    return this.getItemFromLocal('user_data')._id;
   }
   getFirstLetter() {
     let user_data: any = this.getItemFromLocal('user_data');

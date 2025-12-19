@@ -1,0 +1,24 @@
+<div class="task-container">
+  <div class="full-width">
+
+    <div class="full-width filter-options">
+
+      <div class="assigned-to">
+        <mat-form-field>
+          <mat-select placeholder="Assignee" [formControl]="selectedEmployeeList" multiple>
+            <mat-option *ngFor="let user of employeeList" [value]="user._id">{{user.userName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="status">
+        <mat-form-field>
+          <mat-select placeholder="Status" [formControl]="selectedStatus" multiple>
+            <mat-option *ngFor="let s of statusList" [value]="s.status">{{s.status}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+  </div>
+</div>

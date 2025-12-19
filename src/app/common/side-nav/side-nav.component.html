@@ -1,8 +1,17 @@
 <div class="side-nav-container">
-  <div class="full-width">
+  
+  <div class="side-btnbox full-width" routerLink="/" routerLinkActive="side-active-link " [routerLinkActiveOptions]="{exact: true}">
     <button mat-button class="side-nav-btn full-width">
-      <div><mat-icon>person</mat-icon></div>
+      <div class="side-icon"><mat-icon>work</mat-icon></div>
+      <span>Tasks</span>
+    </button>
+  </div>
+
+  <div class="side-btnbox full-width" routerLink="/employee" routerLinkActive="side-active-link " [routerLinkActiveOptions]="{exact: true}">
+    <button mat-button class="side-nav-btn full-width">
+      <div class="side-icon"><mat-icon>person</mat-icon></div>
       <span>Employees</span>
     </button>
   </div>
+
 </div>

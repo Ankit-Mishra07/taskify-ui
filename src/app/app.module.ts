@@ -22,6 +22,8 @@ import { EmployeeCreateEditComponent } from './components/employee-create-edit/e
 import { LoaderComponent } from './common/loader/loader.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TaskListComponent } from './pages/task-list/task-list.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     EmployeeComponent,
     EmployeeCreateEditComponent,
     LoaderComponent,
+    TaskListComponent,
 
   ],
   imports: [
@@ -50,6 +53,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSelectModule,
     ToasterModule.forRoot()
   ],
   providers: [],

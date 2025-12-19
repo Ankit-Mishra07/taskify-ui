@@ -1,0 +1,20 @@
+@import "../../../config.scss";
+
+.task-container {
+    width: 90%;
+    margin: 1% auto;
+    margin-left: 8%;
+    border: 1px solid $light-gray;
+    border-radius: 6px;
+    padding: 12px;
+}
+.filter-options {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
