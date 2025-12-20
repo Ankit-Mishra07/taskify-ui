@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,8 +9,11 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class DashboardComponent implements OnInit {
 
+
   constructor(
-    public _commonService: CommonService
+    public _commonService: CommonService,
+    public _taskService: TaskService,
+
   ) { }
 
   ngOnInit() {

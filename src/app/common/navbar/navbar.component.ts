@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ export class NavbarComponent implements OnInit {
   userDetail = this._commonService.getUserDetails();
   constructor(
     public _commonService: CommonService,
+    public _taskService: TaskService,
     public _router: Router
   ) { }
 
@@ -37,5 +39,9 @@ export class NavbarComponent implements OnInit {
   window.location.reload();
 }
 
+  createNewTask() {
+    this._taskService.taskPopupMode = 'Create'
+    this._taskService.showCreateEditTaskPopup = true;
+  }
   
 }

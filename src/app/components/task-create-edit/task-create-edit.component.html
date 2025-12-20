@@ -1,0 +1,136 @@
+<div class="modal-background-container">
+  <div class="modal-background">
+     <div class="task-ce-container">
+
+      <div class="heading">
+        <p>Create Task</p>
+        <button mat-icon-button (click)="closePopup()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+
+      <form class="inputs-box" [formGroup]="taskForm">
+
+        <div class="project half-width">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Project" formControlName="projectName" required>
+            <mat-option *ngFor="let p of _commonService.projectList" [value]="p">{{p}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="in-box">
+          <div class="workType half-width">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Work type" formControlName="workType" required>
+              <mat-option *ngFor="let w of _commonService.workTypes" [value]="w">{{w}}</mat-option>
+              </mat-select>
+              </mat-form-field>
+          </div>
+          <div class="status half-width">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Status" formControlName="status" required>
+                <mat-option *ngIf="!statusList || !statusList.length" class="text-center">
+                  <mat-progress-spinner mode="indeterminate" diameter="{{30}}"></mat-progress-spinner>
+                </mat-option>
+                <mat-option *ngFor="let s of statusList" [value]="s.status">{{s.status}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+        </div>
+
+        <div class="summary">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Summary" formControlName="summary" required>
+              <mat-error>
+                Summary is <strong>required</strong>
+              </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="description">
+          <mat-form-field class="full-width">
+            <textarea matInput placeholder="Description" formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="createdBy half-width">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Created by" formControlName="createdBy" required>
+              <mat-option *ngIf="!employeeList || !employeeList.length" class="text-center">
+                <mat-progress-spinner mode="indeterminate" diameter="{{30}}"></mat-progress-spinner>
+              </mat-option>
+              <mat-option *ngFor="let em of employeeList" [value]="em._id">{{em.userName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="in-box full-width">
+          <div class="priority half-width">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Priority" formControlName="priority" required>
+                <mat-option *ngFor="let p of _commonService.priorityList" [value]="p">{{p}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          <div class="duedate half-width">
+            <mat-form-field class="full-width">
+              <input matInput [matDatepicker]="dueDatepicker" placeholder="Due date" formControlName="dueDate" required>
+              <mat-datepicker-toggle matSuffix [for]="dueDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #dueDatepicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        
+        <div class="in-box full-width strat-end-date">
+          <mat-form-field class="half-width">
+            <input matInput [matDatepicker]="startDatepicker" placeholder="Start date" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatepicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="half-width">
+            <input matInput [matDatepicker]="endDatepicker" placeholder="End date" formControlName="endDate">
+            <mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatepicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="in-box full-width">
+          <div class="half-width assignedTo">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Assigned to" required formControlName="assignedTo">
+                <mat-option *ngIf="!employeeList || !employeeList.length" class="text-center">
+                  <mat-progress-spinner mode="indeterminate" diameter="{{30}}"></mat-progress-spinner>
+                </mat-option>
+                <mat-option *ngFor="let em of employeeList" [value]="em._id">{{em.userName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="half-width reporter">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Reporter" required formControlName="reporter">
+                <mat-option *ngIf="!employeeList || !employeeList.length" class="text-center">
+                  <mat-progress-spinner mode="indeterminate" diameter="{{30}}"></mat-progress-spinner>
+                </mat-option>
+                <mat-option *ngFor="let em of employeeList" [value]="em._id">{{em.userName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="btn-box">
+          <button mat-raised-button (click)="closePopup()" type="button">Cancel</button>
+          <button class="primary-button" (click)="createTask()">{{mode == 'Create' ? 'Create' : 'Update'}}</button>
+        </div>
+      </form>
+
+
+      <div>
+
+      </div>
+
+     </div>
+  </div>
+</div>
+
+
+<app-loader *ngIf="isLoading"></app-loader>

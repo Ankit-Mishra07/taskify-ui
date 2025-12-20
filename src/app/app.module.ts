@@ -24,6 +24,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TaskListComponent } from './pages/task-list/task-list.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TaskCreateEditComponent } from './components/task-create-edit/task-create-edit.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -37,6 +42,7 @@ import { MatSelectModule } from '@angular/material/select';
     EmployeeCreateEditComponent,
     LoaderComponent,
     TaskListComponent,
+    TaskCreateEditComponent,
 
   ],
   imports: [
@@ -54,6 +60,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatTableModule,
     MatPaginatorModule,
     MatSelectModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ToasterModule.forRoot()
   ],
   providers: [],

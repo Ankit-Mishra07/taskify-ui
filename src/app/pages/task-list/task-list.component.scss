@@ -18,3 +18,22 @@
   opacity: 0.75;
   font-size: 0.75em;
 }
+
+.table-box {
+  height: 70vh;
+  overflow: auto;
+  width: 100%;
+  table {
+    width: 100%;
+    tbody tr td {
+      margin: 0 50px;
+    }
+    .summary-text {
+        width: 410px;
+        max-width: 410px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+  }
+}

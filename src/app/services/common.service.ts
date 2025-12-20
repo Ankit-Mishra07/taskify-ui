@@ -6,6 +6,10 @@ import { Injectable } from '@angular/core';
 export class CommonService {
 
   statusList = [];
+  workTypes = ['Task', 'Sub-Task', 'Bug'];
+  projectList = ['Front Office Management'];
+  priorityList = ['Showstopper', 'Critical', 'High', 'Medium', 'Low'];
+
 
   constructor(
   ) { }
