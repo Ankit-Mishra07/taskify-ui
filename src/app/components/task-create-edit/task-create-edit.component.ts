@@ -122,7 +122,7 @@ export class TaskCreateEditComponent implements OnInit {
     if(!this.taskForm.valid) {
       return;
     }
-    let payload = {
+    let payload :any = {
       projectName: this.taskForm.get('projectName').value,
       workType: this.taskForm.get('workType').value,
       status: this.taskForm.get('status').value,
@@ -139,24 +139,38 @@ export class TaskCreateEditComponent implements OnInit {
       subTasks: this.taskForm.get('subTasks').value,
       workLogs: this.taskForm.get('workLogs').value
     }
-    if (this._taskService.taskPopupModeType = 'Task') {
+    if (this._taskService.taskPopupModeType === 'Task') {
       if(this.mode == 'Create') {
         this.createNewTask(payload);
       } else if (this.mode == 'Edit') {
         this.updateTask(payload);
       }
-    } else if (this._taskService.taskPopupModeType = 'Sub-Task') {
+    } else if (this._taskService.taskPopupModeType === 'Sub-Task') {
       delete payload.subTasks;
       if(this.mode == 'Create') {
+        payload.taskId = this.taskIdToCreateUpdateSubTask;
         this.createNewSubTask(payload)
       }else if(this.mode == 'Edit') {
+        payload.taskId = this.updateTaskData.taskId;
         this.updateSubTask(payload);
       }
-    } 
+    }
   }
 
   updateSubTask(payload) {
-
+    this.isLoading = true;
+    this._subtaskService.updateSubTask(this.updateTaskData._id, payload).subscribe((res:any) => {
+      if (res.success) {
+        this._toaster.pop('success', res.message);
+        this.closePopup();
+      } else {
+        this._toaster.pop('error', res.message);
+      }
+      this.isLoading = false;
+    }, error => {
+      this._toaster.pop('error', 'Something went wrong');
+      this.isLoading = false; 
+    })
   }
 
   createNewSubTask(payload) {

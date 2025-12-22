@@ -81,9 +81,8 @@ export class TaskListComponent implements OnInit {
   }
 
   editTask(taskdata) {
-    console.log(taskdata);
     this._taskService.taskPopupUpdateData = taskdata;
-    this._taskService.taskPopupModeType = taskdata.taskType;
+    this._taskService.taskPopupModeType = 'Task';
     this._taskService.taskPopupMode = 'Edit';
     this._taskService.showCreateEditTaskPopup = true;
   }

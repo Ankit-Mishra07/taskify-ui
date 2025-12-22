@@ -31,6 +31,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { WorklogCreateEditComponent } from './components/worklog-create-edit/worklog-create-edit.component';
 import { TaskViewEditComponent } from './pages/task-view-edit/task-view-edit.component';
+import { ProfileIconComponent } from './common/profile-icon/profile-icon.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { TaskViewEditComponent } from './pages/task-view-edit/task-view-edit.com
     TaskCreateEditComponent,
     WorklogCreateEditComponent,
     TaskViewEditComponent,
+    ProfileIconComponent,
 
   ],
   imports: [

@@ -10,8 +10,30 @@
     <div class="add-subtask-box">
       <button mat-flat-button class="btn-border" (click)="addSubtask()">Add Subtask <mat-icon>add</mat-icon></button>
     </div>
-    <div class="subtask-list-box"></div>
-    <div class="description"></div>
+
+    <div class="description">
+      <div class="description-head">Description:</div>
+      <p>{{currentTaskData.description}}</p>
+    </div>
+
+    <div class="subtask-list-box">
+      <div class="subtask_row" *ngFor="let sub of currentTaskData.subTasks">
+        <div class="subtask-summary">{{sub.taskUniqueId}} : {{sub.summary}}</div>
+        <div class="subtask-action-box">
+          <div class="status-text">{{sub.status}}</div>
+          <button mat-icon-button (click)="navigateSubTask('/task/'+sub._id)">
+            <mat-icon>open_in_new</mat-icon>
+          </button>
+          <button mat-icon-button (click)="editSubTask(sub)">
+              <mat-icon>edit</mat-icon>
+          </button>
+          <div matTooltip="{{sub.assignedTo.userName}}">
+            <app-profile-icon [userName]="sub.assignedTo.userName" [width]="'30px'" [height]="'30px'"></app-profile-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <div class="worklog-box"></div>
 
   </div>
@@ -23,6 +45,6 @@
 </div>
 
 <app-task-create-edit *ngIf="_taskService.showCreateEditTaskPopup" [mode]="_taskService.taskPopupMode"
-  [taskModeType]="_taskService.taskPopupModeType" [updateTaskData]="_taskService.taskPopupUpdateData" [taskIdToCreateUpdateSubTask]="_taskService.taskIdToCreateUpdateSubTask"
-  (ontaskPopupClose)="ontaskPopupClose()">
+  [taskModeType]="_taskService.taskPopupModeType" [updateTaskData]="_taskService.taskPopupUpdateData" [taskIdToCreateUpdateSubTask]="_subTaskService.taskIdToCreateUpdateSubTask"
+  (ontaskPopupClose)="onsubtaskPopupClose()">
 </app-task-create-edit>

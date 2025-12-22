@@ -41,3 +41,43 @@
         width: 100%;
     }
 }
+
+.subtask-list-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    padding: 10px;
+
+    .subtask_row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid $light-gray;
+        box-shadow: $shadow1;
+        padding: 6px;
+        .subtask-summary {
+            font-size: 18px;
+            width: 70%;
+            max-width: 65%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            
+        }
+        .subtask-action-box {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 5px;
+            width: 30%;
+        }
+    }
+
+}
+
+.description {
+    .description-head {
+     font-weight: bold;
+    }
+}
