@@ -29,6 +29,8 @@ import { TaskCreateEditComponent } from './components/task-create-edit/task-crea
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
+import { WorklogCreateEditComponent } from './components/worklog-create-edit/worklog-create-edit.component';
+import { TaskViewEditComponent } from './pages/task-view-edit/task-view-edit.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { MatNativeDateModule } from '@angular/material';
     LoaderComponent,
     TaskListComponent,
     TaskCreateEditComponent,
+    WorklogCreateEditComponent,
+    TaskViewEditComponent,
 
   ],
   imports: [

@@ -1,0 +1,43 @@
+@import "../../../config.scss";
+
+.task-view-container {
+    width: 90%;
+    margin: 1% auto;
+    margin-left: 8%;
+    border: 1px solid $light-gray;
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    height: 85vh;
+}
+.section-1 {
+    padding: 10px;
+    width: 65%;
+    border: 1px solid $light-gray;
+    height: 800vh;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.section-2 {
+    padding: 10px;
+    width: 35%;
+    border: 1px solid $light-gray;
+    height: 80vh;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.summary {
+    p {
+        font-size: 20px;
+        font-weight: bold;
+        width: 100%;
+    }
+}

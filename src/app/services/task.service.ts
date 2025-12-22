@@ -6,7 +6,6 @@ import { WebService } from './web.service';
 })
 export class TaskService {
 
-  taskList = [];
   all_task_subtask_list = [];
 
   
@@ -39,6 +38,10 @@ export class TaskService {
     return this._webService.commonGetMethod(`/task/gettasksubtasklist?${query}`)
   }
 
+  fetchOneTaskById(taskId) {
+    return this._webService.commonGetMethod(`/task/getonetask/${taskId}`);
+  }
+
   combineSubtaskToTask(tasklist) {
     let list = [];
     for(let task of tasklist) {
@@ -49,5 +52,6 @@ export class TaskService {
     }
     return list;
   }
+
 
 }

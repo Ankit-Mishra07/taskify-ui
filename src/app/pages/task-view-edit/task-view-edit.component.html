@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+
+<div class="task-view-container" *ngIf="currentTaskData">
+
+  <div class="section-1">
+
+    <div class="summary">
+      <p>{{currentTaskData.taskUniqueId}} : {{currentTaskData.summary}}</p>
+    </div>
+    <div class="add-subtask-box">
+      <button mat-flat-button class="btn-border" (click)="addSubtask()">Add Subtask <mat-icon>add</mat-icon></button>
+    </div>
+    <div class="subtask-list-box"></div>
+    <div class="description"></div>
+    <div class="worklog-box"></div>
+
+  </div>
+
+  <div class="section-2">
+
+  </div>
+
+</div>
+
+<app-task-create-edit *ngIf="_taskService.showCreateEditTaskPopup" [mode]="_taskService.taskPopupMode"
+  [taskModeType]="_taskService.taskPopupModeType" [updateTaskData]="_taskService.taskPopupUpdateData" [taskIdToCreateUpdateSubTask]="_taskService.taskIdToCreateUpdateSubTask"
+  (ontaskPopupClose)="ontaskPopupClose()">
+</app-task-create-edit>

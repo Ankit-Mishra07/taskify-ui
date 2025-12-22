@@ -5,6 +5,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 import { StatusService } from 'src/app/services/status.service';
 import { TaskService } from 'src/app/services/task.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SubtaskService } from 'src/app/services/subtask.service';
 
 @Component({
   selector: 'app-task-create-edit',
@@ -15,6 +16,7 @@ export class TaskCreateEditComponent implements OnInit {
   @Input('mode') mode;
   @Input('taskModeType') taskModeType;
   @Input('updateTaskData') updateTaskData?;
+  @Input('taskIdToCreateUpdateSubTask') taskIdToCreateUpdateSubTask?;
   @Output('ontaskPopupClose') ontaskPopupClose = new EventEmitter();
 
   statusList = [];
@@ -29,7 +31,8 @@ export class TaskCreateEditComponent implements OnInit {
     public _commonService: CommonService,
     public _statusService: StatusService,
     public _employeeService: EmployeeService,
-    public _toaster: ToasterService
+    public _toaster: ToasterService,
+    public _subtaskService: SubtaskService
   ) { }
 
   ngOnInit() {
@@ -38,6 +41,10 @@ export class TaskCreateEditComponent implements OnInit {
       this.initForm();
     }else if(this.mode == 'Edit') {
       this.updateForm();
+    }
+    if (this.taskModeType == 'Sub-Task') {
+      this.taskForm.get('workType').setValue('Sub-Task');
+      this.taskForm.get('workType').disable();
     }
     this.getAllStatusList();
     this.getAllEmployeeList();
@@ -140,7 +147,36 @@ export class TaskCreateEditComponent implements OnInit {
       }
     } else if (this._taskService.taskPopupModeType = 'Sub-Task') {
       delete payload.subTasks;
+      if(this.mode == 'Create') {
+        this.createNewSubTask(payload)
+      }else if(this.mode == 'Edit') {
+        this.updateSubTask(payload);
+      }
     } 
+  }
+
+  updateSubTask(payload) {
+
+  }
+
+  createNewSubTask(payload) {
+    if (!this.taskIdToCreateUpdateSubTask) {
+      this._toaster.pop('error', 'Invalid parent task id');
+      return;
+    }
+    this.isLoading = true;
+    this._subtaskService.createSubTask(this.taskIdToCreateUpdateSubTask, payload).subscribe((res:any) => {
+      if (res.success) {
+        this._toaster.pop('success', res.message);
+        this.closePopup();
+      } else {
+        this._toaster.pop('error', res.message);
+      }
+      this.isLoading = false;
+    }, error => {
+      this._toaster.pop('error', 'Something went wrong');
+      this.isLoading = false; 
+    })
   }
 
   createNewTask(payload) {

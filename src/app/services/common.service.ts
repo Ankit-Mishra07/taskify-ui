@@ -66,4 +66,11 @@ export class CommonService {
     const b = Math.floor(Math.random() * 256);
     return `rgb(${r}, ${g}, ${b})`;
   }
+
+  isValidDate(date) {
+    if (!date || new Date(date).toString() == "Invalid Date") {
+      return false;
+    }
+    return true;
+  }
 }

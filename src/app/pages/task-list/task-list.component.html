@@ -3,26 +3,52 @@
 
     <div class="full-width filter-options">
 
-      <div class="assigned-to">
-        <mat-form-field>
-          <mat-select placeholder="Assignee" [formControl]="selectedEmployeeList" multiple>
-            <mat-option *ngFor="let user of employeeList" [value]="user._id">{{user.userName}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="filter-1">
+        <div class="assigned-to">
+          <mat-form-field>
+            <mat-select placeholder="Assignee" [formControl]="selectedEmployeeList" multiple>
+              <mat-option *ngFor="let user of employeeList" [value]="user._id">{{user.userName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="status">
+          <mat-form-field>
+            <mat-select placeholder="Status" [formControl]="selectedStatus" multiple>
+              <mat-option *ngFor="let s of statusList" [value]="s.status">{{s.status}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="workType">
+          <mat-form-field>
+            <mat-select placeholder="Type" [formControl]="selectedWorkType" multiple>
+              <mat-option *ngFor="let w of _commonService.workTypes" [value]="w">{{w}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <button mat-flat-button class="search" (click)="searchSelectedFilter()"><mat-icon>search</mat-icon>Search</button>
+        </div>
+        <div>
+          <button mat-flat-button class="reset-filter" (click)="resetFilter()">Reset</button>
+        </div>
       </div>
-      <div class="status">
-        <mat-form-field>
-          <mat-select placeholder="Status" [formControl]="selectedStatus" multiple>
-            <mat-option *ngFor="let s of statusList" [value]="s.status">{{s.status}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="workType">
-        <mat-form-field>
-          <mat-select placeholder="Type" [formControl]="selectedWorkType" multiple>
-            <mat-option *ngFor="let w of _commonService.workTypes" [value]="w">{{w}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+
+      <div class="filter-2">
+        <div class="search-current-task">
+          <mat-form-field>
+            <button mat-button matPrefix mat-icon-button>
+              <mat-icon>search</mat-icon>
+            </button>
+            <input matInput placeholder="Search task" (keyup)="searchLoadedTask()" [(ngModel)]="searchLoadedText">
+            <button mat-button matSuffix mat-icon-button (click)="clearLoadedSearch()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-flat-button class="refresh" matTooltip="Refresh" (click)="refersh()"><mat-icon>autorenew</mat-icon></button>
+        </div>
       </div>
 
     </div>
@@ -32,6 +58,10 @@
       <div class="table-box">
         <table mat-table [dataSource]="_taskService.all_task_subtask_list">
       
+          <ng-container matColumnDef="TaskId">
+            <th mat-header-cell *matHeaderCellDef> Task ID </th>
+            <td mat-cell *matCellDef="let element" class="summary-text" matTooltip="{{element.taskUniqueId}}" > {{element.taskUniqueId}} </td>
+          </ng-container>
           <ng-container matColumnDef="summary">
             <th mat-header-cell *matHeaderCellDef> Summary </th>
             <td mat-cell *matCellDef="let element" class="summary-text" matTooltip="{{element.summary}}" > {{element.summary}} </td>
@@ -58,11 +88,14 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-              <button mat-icon-button>
+              <button mat-icon-button routerLink="{{'task/'+element._id}}">
                 <mat-icon>open_in_new</mat-icon>
               </button>
               <button *ngIf="_commonService.isSuperAdmin"mat-icon-button (click)="editTask(element)">
                 <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-flat-button (click)="enterWorkLog(element)" class="btn-border">
+                Log work
               </button>
               <button *ngIf="_commonService.isSuperAdmin" mat-icon-button>
                 <mat-icon>delete</mat-icon>
@@ -73,6 +106,9 @@
           <tr mat-header-row *matHeaderRowDef="taskDisplayColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: taskDisplayColumns;"></tr>
         </table>
+        <div class="norecord" *ngIf="!_taskService.all_task_subtask_list.length">
+          No records found
+        </div>
       </div>
 
     </div>
@@ -87,3 +123,8 @@
   [taskModeType]="_taskService.taskPopupModeType"
   [updateTaskData]="_taskService.taskPopupUpdateData" (ontaskPopupClose)="ontaskPopupClose()">
 </app-task-create-edit>
+
+<app-worklog-create-edit *ngIf="_worklogService.openWorklogPopup" [taskData]="_worklogService.selectedTaskData"
+(closePopup)="closeWorklogPopup()" [mode]="_worklogService.worklogPopupMode"
+>
+</app-worklog-create-edit>

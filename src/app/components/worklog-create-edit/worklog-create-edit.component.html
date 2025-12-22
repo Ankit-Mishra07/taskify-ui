@@ -1,0 +1,50 @@
+<div class="modal-background-container">
+  <div class="modal-background">
+
+    <div class="worklog-ce-center">
+      
+      <div class="heading">
+        <p>Time Tracking</p>
+        <button mat-icon-button (click)="closeworklogPopup()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+
+      <form [formGroup]="worklogForm" class="inputs-box">
+        <mat-form-field class="full-width" appearance="outline">
+          <input class="time-spent" matInput placeholder="Time Spent" formControlName="timeSpent" required>
+          <mat-error>
+            Enter value like 1h or 30m
+          </mat-error>
+        </mat-form-field>
+
+        <div class="time-format-info">
+          <p>Use the format: 1h or 60m</p>
+          <ul>
+            <li>h = hours</li>
+            <li>m = minutes</li>
+          </ul>
+        </div>
+
+        <mat-form-field class="full-width">
+          <input matInput [matDatepicker]="logDatepicker" placeholder="Date" formControlName="dateTime" required>
+          <mat-datepicker-toggle matSuffix [for]="logDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #logDatepicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <textarea matInput placeholder="Leave a comment" formControlName="description"></textarea>
+        </mat-form-field>
+
+        <div class="btn-box">
+          <button mat-raised-button (click)="closeworklogPopup()" type="button">Cancel</button>
+          <button [disabled]="isLoading" class="primary-button" (click)="saveWorklog()">{{mode == 'Create' ? 'Save' : 'Update'}}</button>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+<app-loader *ngIf="isLoading"></app-loader>

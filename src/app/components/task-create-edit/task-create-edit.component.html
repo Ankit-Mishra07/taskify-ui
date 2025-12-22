@@ -3,7 +3,7 @@
      <div class="task-ce-container">
 
       <div class="heading">
-        <p>Create Task</p>
+        <p>Create {{taskModeType == 'Sub-Task' ? 'Sub Task' : 'Task'}}</p>
         <button mat-icon-button (click)="closePopup()">
           <mat-icon>cancel</mat-icon>
         </button>

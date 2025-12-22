@@ -4,6 +4,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/auth.guard';
 import { EmployeeComponent } from './pages/employee/employee.component';
+import { TaskViewEditComponent } from './pages/task-view-edit/task-view-edit.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'employee',
     component: EmployeeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'task/:id',
+    component: TaskViewEditComponent,
     canActivate: [AuthGuard]
   }
 ];

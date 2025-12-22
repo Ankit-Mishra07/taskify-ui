@@ -5,6 +5,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { StatusService } from 'src/app/services/status.service';
 import { TaskService } from 'src/app/services/task.service';
+import { WorklogService } from 'src/app/services/worklog.service';
 
 @Component({
   selector: 'app-task-list',
@@ -20,23 +21,23 @@ export class TaskListComponent implements OnInit {
 
   selectedEmployeeList = new FormControl([this.userId]);
   selectedStatus = new FormControl(['Todo']);
-  selectedWorkType = new FormControl([]);
+  selectedWorkType = new FormControl(['Task']);
   taskDisplayColumns = ['summary', 'status', 'assignedTo', 'reporter', 'dueDate', 'actions'];
+
+  searchLoadedText:string = '';
+  backup_all_task_subtask_list = [];
   
   constructor(
     public _taskService: TaskService,
     public _commonService: CommonService,
     public _employeeService: EmployeeService,
     public _statusService: StatusService,
+    public _worklogService: WorklogService,
     public _toaster: ToasterService
   ) { }
 
   ngOnInit() {
-    this.getAllEmployeeList(() => {
-      this.getAllStatusList(() => {
-        this.getAll_task_subtask_list();
-      });
-    });
+    this.resetFilter();
   }
   getAllEmployeeList(callback) {
     this.isLoading = true;
@@ -112,13 +113,73 @@ export class TaskListComponent implements OnInit {
       query.workType = worktypeList;
     }
 
-    let queryString = `assignedTo=${emList}&status=${statusList}`
+    let queryString = `assignedTo=${emList}&status=${statusList}&workType=${worktypeList}`
 
-    this._taskService.getAllTask_SubTaskList(queryString).subscribe((res) => {
-
+    this.isLoading = true;
+    this._taskService.getAllTask_SubTaskList(queryString).subscribe((response:any) => {
+          try {
+            if (response.success) {
+              this._taskService.all_task_subtask_list = JSON.parse(JSON.stringify(response.data));
+              this.backup_all_task_subtask_list = JSON.parse(JSON.stringify(response.data));
+            } else {
+              this._toaster.pop('error', response.message);
+            }
+            this.isLoading = false;
+          } catch (error) {
+            this.isLoading = false;
+            console.error(error)
+          }
+    }, error => {
+            this.isLoading = false;
+            console.error(error)
     })
   }
 
+  searchLoadedTask() {
+    this._taskService.all_task_subtask_list = this._taskService.all_task_subtask_list.filter(v => v.summary.toLowerCase().includes(this.searchLoadedText.toLowerCase()))
+  }
+
+  clearLoadedSearch() {
+    this.searchLoadedText = '';
+    this._taskService.all_task_subtask_list = JSON.parse(JSON.stringify(this.backup_all_task_subtask_list))
+
+  }
+
+  searchSelectedFilter() {
+    this.searchLoadedText = '';
+    this.getAll_task_subtask_list();
+  }
+
+  resetFilter() {
+    this.searchLoadedText = '';
+    this.selectedEmployeeList.setValue([this.userId]);
+    this.selectedStatus.setValue(['Todo']);
+    this.selectedWorkType.setValue(['Task']);
+    this.getAllEmployeeList(() => {
+      this.getAllStatusList(() => {
+        this.getAll_task_subtask_list();
+      });
+    }); 
+  }
+  refersh() {
+    this.getAllEmployeeList(() => {
+      this.getAllStatusList(() => {
+        this.getAll_task_subtask_list();
+      });
+    });
+  }
+
+  enterWorkLog(element) {
+    this._worklogService.selectedTaskData = element;
+    this._worklogService.worklogPopupMode = 'Create';
+    this._worklogService.workLogEditData = null;
+    this._worklogService.openWorklogPopup = true;
+  }
+
+  closeWorklogPopup() {
+    this.refersh();
+  }
+ 
 
 
 
