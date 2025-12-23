@@ -32,6 +32,9 @@ import { MatNativeDateModule } from '@angular/material';
 import { WorklogCreateEditComponent } from './components/worklog-create-edit/worklog-create-edit.component';
 import { TaskViewEditComponent } from './pages/task-view-edit/task-view-edit.component';
 import { ProfileIconComponent } from './common/profile-icon/profile-icon.component';
+import { SecondsToLogTimePipe } from './pipes/seconds-to-log-time.pipe';
+import { ConfirmationPopupComponent } from './common/confirmation-popup/confirmation-popup.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,8 @@ import { ProfileIconComponent } from './common/profile-icon/profile-icon.compone
     WorklogCreateEditComponent,
     TaskViewEditComponent,
     ProfileIconComponent,
+    SecondsToLogTimePipe,
+    ConfirmationPopupComponent,
 
   ],
   imports: [
@@ -70,9 +75,13 @@ import { ProfileIconComponent } from './common/profile-icon/profile-icon.compone
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     ToasterModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmationPopupComponent
+  ]
 })
 export class AppModule { }

@@ -116,6 +116,8 @@ export class TaskCreateEditComponent implements OnInit {
     this._taskService.taskPopupModeType = '';
     this._taskService.taskPopupUpdateData = null;
     this._taskService.showCreateEditTaskPopup = false;
+    this._subtaskService.taskIdToCreateUpdateSubTask = '';
+
     this.ontaskPopupClose.emit('')
   }
   createTask() {

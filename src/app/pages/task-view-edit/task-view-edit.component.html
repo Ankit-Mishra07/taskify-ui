@@ -7,8 +7,10 @@
     <div class="summary">
       <p>{{currentTaskData.taskUniqueId}} : {{currentTaskData.summary}}</p>
     </div>
-    <div class="add-subtask-box">
-      <button mat-flat-button class="btn-border" (click)="addSubtask()">Add Subtask <mat-icon>add</mat-icon></button>
+    <div class="add-subtask-edit-box">
+      <button mat-flat-button class="btn-border worktypeinfo">{{currentTaskData.workType}} <mat-icon>info</mat-icon></button>
+      <button *ngIf="currentQueryTasktype == 'parenttask'" mat-flat-button class="btn-border" (click)="addSubtask()">Add Subtask <mat-icon>add</mat-icon></button>
+      <button mat-flat-button class="btn-border" (click)="editCurrentTask()">Edit <mat-icon>edit</mat-icon></button>
     </div>
 
     <div class="description">
@@ -16,7 +18,7 @@
       <p>{{currentTaskData.description}}</p>
     </div>
 
-    <div class="subtask-list-box">
+    <div class="subtask-list-box" *ngIf="currentQueryTasktype == 'parenttask'">
       <div class="subtask_row" *ngFor="let sub of currentTaskData.subTasks">
         <div class="subtask-summary">{{sub.taskUniqueId}} : {{sub.summary}}</div>
         <div class="subtask-action-box">
@@ -34,12 +36,115 @@
       </div>
     </div>
     
-    <div class="worklog-box"></div>
+    <div class="worklog-box">
+      <div class="work-log-head">Work Log</div>
+      <hr/>
+      <div class="worklogs-row" *ngFor="let log of currentTaskData.workLogs">
+        <div class="name-log">
+          <div class="name-icon">
+            <app-profile-icon [userName]="log.userId.userName" [width]="'35px'" [height]="'35px'"></app-profile-icon>
+          </div>
+          <div class="name">{{log.userId.userName}}</div>
+          <div class="logtime">
+            logged {{log.timeSpent | secondsToLogTime}}
+          </div>
+        </div>
+        <div class="date">{{log.dateTime|date}}</div>
+        <div class="log-description">
+          {{log.description}}
+        </div>
+        <div class="ed-btn-box">
+          <button mat-raised-button (click)="editWorkLog(currentTaskData, log)">Edit</button>
+          <button mat-raised-button *ngIf="userId === log.userId._id" (click)="deleteWorkLog(log)">Delete</button>
+        </div>
+      </div>
+    </div>
 
   </div>
 
   <div class="section-2">
+    <div class="status-log-btn-box">
+      <button mat-flat-button class="btn-border status-btn">{{currentTaskData.status}}</button>
+      <button mat-flat-button class="btn-border" (click)="enterWorkLog()">Log work <mat-icon>timeline</mat-icon></button>
+    </div>
+    <div class="project-name">
+      {{currentTaskData.projectName}}
+      <hr/>
+    </div>
+    <div class="sec2-details-box">
+      <div class="detail">
+        <span class="det-left-text">Assignee</span> 
+        <span class="name-sec">
+          <app-profile-icon [userName]="currentTaskData.assignedTo.userName" [width]="'30px'" [height]="'30px'"></app-profile-icon>
+          <span>{{currentTaskData.assignedTo.userName}}</span>
+        </span>
+      </div>
+      <div class="detail">
+        <span class="det-left-text">Reporter</span> 
+        <span class="name-sec">
+          <app-profile-icon [userName]="currentTaskData.reporter.userName" [width]="'30px'" [height]="'30px'"></app-profile-icon>
+          <span>{{currentTaskData.reporter.userName}}</span>
+        </span>
+      </div>
+      <div class="detail">
+        <span class="det-left-text">Created by</span> 
+        <span class="name-sec">
+          <app-profile-icon [userName]="currentTaskData.createdBy.userName" [width]="'30px'" [height]="'30px'"></app-profile-icon>
+          <span>{{currentTaskData.createdBy.userName}}</span>
+        </span>
+      </div>
+      <div class="detail">
+        <span class="det-left-text">Priority</span> 
+        <span class="name-sec">
+          <mat-icon>low_priority</mat-icon>
+          <span>{{currentTaskData.priority}}</span>
+        </span>
+      </div>
+      <div class="detail">
+        <span class="det-left-text">Due date</span> 
+        <span class="name-sec">
+          <mat-icon>date_range</mat-icon>
+          <span>{{currentTaskData.dueDate|date}}</span>
+        </span>
+      </div>
+      <div class="detail">
+        <span class="det-left-text">Start date</span> 
+        <span class="name-sec">
+          <mat-icon>date_range</mat-icon>
+          <span>{{currentTaskData.startDate|date}}</span>
+        </span>
+      </div>
+      <div class="detail">
+        <span class="det-left-text">End date</span> 
+        <span class="name-sec">
+          <mat-icon>date_range</mat-icon>
+          <span>{{currentTaskData.endDate|date}}</span>
+        </span>
+      </div>
+      
+      <hr/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      
+      <div class="detail">
+        <span class="det-left-text">Created at</span> 
+        <span class="name-sec">
+          <mat-icon>date_range</mat-icon>
+          <span>{{currentTaskData.createdAt|date}}</span>
+        </span>
+      </div>
+      <div class="detail">
+        <span class="det-left-text">Updated at</span> 
+        <span class="name-sec">
+          <mat-icon>date_range</mat-icon>
+          <span>{{currentTaskData.updatedAt|date}}</span>
+        </span>
+      </div>
+      
 
+    </div>
   </div>
 
 </div>
@@ -48,3 +153,10 @@
   [taskModeType]="_taskService.taskPopupModeType" [updateTaskData]="_taskService.taskPopupUpdateData" [taskIdToCreateUpdateSubTask]="_subTaskService.taskIdToCreateUpdateSubTask"
   (ontaskPopupClose)="onsubtaskPopupClose()">
 </app-task-create-edit>
+
+
+<app-worklog-create-edit *ngIf="_worklogService.openWorklogPopup" [taskData]="_worklogService.selectedTaskData"
+  (closePopup)="closeWorklogPopup()" [mode]="_worklogService.worklogPopupMode" [workLogEditData]="_worklogService.workLogEditData" >
+</app-worklog-create-edit>
+
+<app-loader *ngIf="isLoading"></app-loader>

@@ -88,18 +88,37 @@ export class WorklogCreateEditComponent implements OnInit {
       taskId: this.mode === 'Edit' ? this.workLogEditData.taskId :this.worklogForm.get('taskId').value
     }
     this.isLoading = true;
-    this._worklogService.postworkLog(this.userId, payload.taskId, payload).subscribe((res:any) => {
-      if(res.success) {
-        this._toaster.pop('success', res.message);
-        this.closeworklogPopup();
-      }else {
-        this._toaster.pop('error', res.message);
-      }
-      this.isLoading = false;
-    }, error => {
-      this._toaster.pop('error', 'Something went wrong');
-      this.isLoading = false;
-    });
+    if(this.mode === 'Create') {
+      this._worklogService.postworkLog(this.userId, payload.taskId, payload).subscribe((res:any) => {
+        if(res.success) {
+          this._toaster.pop('success', res.message);
+          this.closeworklogPopup();
+        }else {
+          this._toaster.pop('error', res.message);
+        }
+        this.isLoading = false;
+      }, error => {
+        this._toaster.pop('error', 'Something went wrong');
+        this.isLoading = false;
+      });
+    } 
+    
+    else if (this.mode === 'Edit') {
+      this._worklogService.patchWorkLog(this.workLogEditData._id, payload).subscribe((res:any) => {
+        if (res.success) {
+          this._toaster.pop('success', res.message);
+          this.closeworklogPopup();
+        } else {
+          this._toaster.pop('error', res.message);
+        }
+        this.isLoading = false;
+      }, error => {
+        this._toaster.pop('error', 'Something went wrong');
+        this.isLoading = false;
+      })
+    }
+
+    
   }
 
 

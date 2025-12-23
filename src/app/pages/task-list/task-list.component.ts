@@ -4,6 +4,7 @@ import { ToasterService } from 'angular2-toaster';
 import { CommonService } from 'src/app/services/common.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { StatusService } from 'src/app/services/status.service';
+import { SubtaskService } from 'src/app/services/subtask.service';
 import { TaskService } from 'src/app/services/task.service';
 import { WorklogService } from 'src/app/services/worklog.service';
 
@@ -22,7 +23,7 @@ export class TaskListComponent implements OnInit {
   selectedEmployeeList = new FormControl([this.userId]);
   selectedStatus = new FormControl(['Todo']);
   selectedWorkType = new FormControl(['Task']);
-  taskDisplayColumns = ['summary', 'status', 'assignedTo', 'reporter', 'dueDate', 'actions'];
+  taskDisplayColumns = ['TaskId', 'summary', 'type', 'status', 'assignedTo', 'reporter', 'dueDate', 'actions'];
 
   searchLoadedText:string = '';
   backup_all_task_subtask_list = [];
@@ -33,7 +34,8 @@ export class TaskListComponent implements OnInit {
     public _employeeService: EmployeeService,
     public _statusService: StatusService,
     public _worklogService: WorklogService,
-    public _toaster: ToasterService
+    public _toaster: ToasterService,
+    public _subTaskService: SubtaskService
   ) { }
 
   ngOnInit() {
@@ -85,6 +87,8 @@ export class TaskListComponent implements OnInit {
     this._taskService.taskPopupModeType = 'Task';
     this._taskService.taskPopupMode = 'Edit';
     this._taskService.showCreateEditTaskPopup = true;
+    this._subTaskService.taskIdToCreateUpdateSubTask = '';
+
   }
 
   ontaskPopupClose() {
@@ -98,21 +102,11 @@ export class TaskListComponent implements OnInit {
 
 
   getAll_task_subtask_list() {
-    let query:any = {}
-    let emList = this.selectedEmployeeList.value.join(',');
-    let statusList = this.selectedStatus.value.join(',');
-    let worktypeList = this.selectedWorkType.value.join(',');
-    if (emList) {
-      query.assignedTo = emList;
-    }
-    if (statusList) {
-      query.status = statusList;
-    }
-    if (worktypeList) {
-      query.workType = worktypeList;
-    }
+    let emList = this.selectedEmployeeList.value;
+    let statusList = this.selectedStatus.value;
+    let worktypeList = this.selectedWorkType.value;
 
-    let queryString = `assignedTo=${emList}&status=${statusList}&workType=${worktypeList}`
+    let queryString = `assignedTo=${emList.join(',')}&status=${statusList.join(',')}&workType=${worktypeList.join(',')}`
 
     this.isLoading = true;
     this._taskService.getAllTask_SubTaskList(queryString).subscribe((response:any) => {
@@ -135,7 +129,10 @@ export class TaskListComponent implements OnInit {
   }
 
   searchLoadedTask() {
-    this._taskService.all_task_subtask_list = this._taskService.all_task_subtask_list.filter(v => v.summary.toLowerCase().includes(this.searchLoadedText.toLowerCase()))
+    this._taskService.all_task_subtask_list = this._taskService.all_task_subtask_list.filter(v => (v.summary.toLowerCase().includes(this.searchLoadedText.toLowerCase()) || v.taskUniqueId.toLowerCase().includes(this.searchLoadedText.toLowerCase())) );
+    if (!this.searchLoadedText) {
+      this.clearLoadedSearch();
+    }
   }
 
   clearLoadedSearch() {
@@ -177,6 +174,30 @@ export class TaskListComponent implements OnInit {
 
   closeWorklogPopup() {
     this.refersh();
+  }
+
+  selectAll(listParam) {
+    if (listParam === 'employeeList') {
+      if (this.selectedEmployeeList.value.includes('All')) {
+        this.selectedEmployeeList.setValue(['All'].concat(this.employeeList.map(v => v._id.toString())));
+      }else {
+        this.selectedEmployeeList.setValue([]);
+      }
+    }
+    if (listParam === 'statusList') {
+      if (this.selectedStatus.value.includes('All')) {
+        this.selectedStatus.setValue(['All'].concat(this.statusList.map(v => v.status.toString())));
+      }else {
+        this.selectedStatus.setValue([]);
+      }
+    }
+    if (listParam === 'workTypes') {
+      if (this.selectedWorkType.value.includes('All')) {
+        this.selectedWorkType.setValue(['All'].concat(this._commonService.workTypes.map(v => v.toString())));
+      }else {
+        this.selectedWorkType.setValue([]);
+      }
+    }
   }
  
 

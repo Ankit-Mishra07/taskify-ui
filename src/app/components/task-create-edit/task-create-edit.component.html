@@ -32,7 +32,7 @@
                 <mat-option *ngIf="!statusList || !statusList.length" class="text-center">
                   <mat-progress-spinner mode="indeterminate" diameter="{{30}}"></mat-progress-spinner>
                 </mat-option>
-                <mat-option *ngFor="let s of statusList" [value]="s.status">{{s.status}}</mat-option>
+                <mat-option *ngFor="let s of statusList" [value]="s.status" [disabled]="s.status == 'Sub-Task' && taskModeType != 'Sub-Task'">{{s.status}}</mat-option>
                 </mat-select>
               </mat-form-field>
           </div>

@@ -77,7 +77,118 @@
 }
 
 .description {
+    margin: 12px 0;
     .description-head {
-     font-weight: bold;
+    //  font-weight: bold;
+     color: $dark-gray;
+     margin-bottom: 4px;
     }
+    p {
+        border: 1px solid $light-gray;
+        padding: 10px;
+    }
+}
+
+.worklog-box {
+    .work-log-head {
+        color: $warning-color;
+        margin: 10px 0;
+        font-size: 18px;
+
+    }
+}
+.worklogs-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 16px;
+    .date {
+        font-size: 14px;
+        color: $dark-gray;
+
+    }
+    .name-log {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        .name {
+            color: $button-hover-background;
+        }
+    }
+    .log-description {
+        color: $black-color;
+        font-size: 16px;
+    }
+    .ed-btn-box {
+
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 4px;
+        margin: 6px;
+        button {
+            font-size: 10px;
+        }
+    }
+}
+.add-subtask-edit-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+.status-btn {
+    padding: 0px 30px;
+    // background-color: $secondary-color;
+    background-color: #aff6c1;
+}
+.status-log-btn-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+.project-name {
+    margin-top: 10px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: chocolate;
+}
+.sec2-details-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    .detail {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        padding: 6px;
+        cursor: pointer;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.08);;
+        }
+        .det-left-text {
+            font-family: monospace;
+            width: 40%;
+        }
+        .name-sec {
+            width: 60%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            font-family: monospace;
+        }
+    }
+}
+
+.worktypeinfo {
+    background-color: #d68b55;
+    color: #fff;
 }

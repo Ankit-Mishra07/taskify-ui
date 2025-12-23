@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
+import { SubtaskService } from 'src/app/services/subtask.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     public _commonService: CommonService,
     public _taskService: TaskService,
-    public _router: Router
+    public _router: Router,
+    public _subtaskService: SubtaskService
   ) { }
 
   ngOnInit() {
@@ -40,8 +42,11 @@ export class NavbarComponent implements OnInit {
 }
 
   createNewTask() {
+    this._taskService.taskPopupModeType = 'Task';
+    this._taskService.taskPopupUpdateData = null;
     this._taskService.taskPopupMode = 'Create'
     this._taskService.showCreateEditTaskPopup = true;
+    this._subtaskService.taskIdToCreateUpdateSubTask = '';
   }
   
 }

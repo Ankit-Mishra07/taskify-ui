@@ -65,4 +65,20 @@ export class WebService {
       console.error(error)
     }
   }
+  commonDeleteMethod(endpoint) {
+    try {
+      endpoint = endpoint[0] != '/' ? ('/' + endpoint) : endpoint;
+      let url = this.baseUrl + endpoint;
+      let header = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': this.token
+      })
+      return this._http.delete(url, {
+        headers: header
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }

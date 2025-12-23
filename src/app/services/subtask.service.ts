@@ -18,4 +18,7 @@ export class SubtaskService {
   updateSubTask(subTaskId, data) {
     return this._webService.commonPatchMethod(`/task/subtask/update/${subTaskId}`, data)
   }
+  fetchSubTaskById(subtaskId) {
+    return this._webService.commonGetMethod(`/task/subtask/getonesubtask/${subtaskId}`);
+  }
 }

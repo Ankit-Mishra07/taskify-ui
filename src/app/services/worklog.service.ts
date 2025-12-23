@@ -54,5 +54,10 @@ export class WorklogService {
   postworkLog(userId, taskId, data) {
     return this._webService.commonPostMethod(`/worklog/createlog/${userId}/${taskId}`, data);
   }
-  
+  patchWorkLog(logId, data) {
+    return this._webService.commonPatchMethod(`worklog/updatelog/${logId}`, data)
+  }
+  deleteWorkLog(logId) {
+    return this._webService.commonDeleteMethod(`worklog/deletelog/${logId}`)
+  }
 }
