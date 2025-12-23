@@ -10,7 +10,33 @@ export class CommonService {
   projectList = ['Front Office Management'];
   priorityList = ['Showstopper', 'Critical', 'High', 'Medium', 'Low'];
 
-
+  // [
+  //   {
+  //     "Code": "FOM",
+  //     "Name": "Front Office(FOM)",
+  //     "ProductCode": "10021"
+  //   },
+  //   {
+  //     "Code": "POS",
+  //     "Name": "Point of Sale(POS)",
+  //     "ProductCode": "10004"
+  //   },
+  //   {
+  //     "Code": "SPA",
+  //     "Name": "SPA",
+  //     "ProductCode": "10029"
+  //   },
+  //   {
+  //     "Code": "Banquets",
+  //     "Name": "Banquets(SNC)",
+  //     "ProductCode": "10035"
+  //   },
+  //   {
+  //     "Code": "FAS",
+  //     "Name": "Fx Finance(FAS)",
+  //     "ProductCode": "10010"
+  //   }
+  // ]
   constructor(
   ) { }
   getCookie(name) {

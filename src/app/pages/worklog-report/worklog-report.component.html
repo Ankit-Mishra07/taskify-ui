@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+
+<div class="log-report-container">
+  <div class="section-1">
+    <h2 class="full-width">Worklog Report</h2>
+    <form [formGroup]="logForm" class="full-width">
+      <mat-form-field class="full-width">
+        <input matInput [max]="logForm.get('toDate')?.value" [matDatepicker]="fromDatePicker" placeholder="From date" formControlName="fromDate" required>
+        <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #fromDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput [min]="logForm.get('fromDate')?.value" [matDatepicker]="toDatePicker" placeholder="To date" formControlName="toDate" required>
+        <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #toDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Assignee" formControlName="userId">
+          <mat-option *ngFor="let user of _employeeService.employeeList" [value]="user._id">{{user.userName}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <div class="reportbtn-box">
+        <button mat-raised-button (click)="getLogs()">Generate report</button>
+      </div>
+
+    </form>
+  </div>
+
+
+  <div class="section-2">
+
+    <div class="log-table-container">
+      <div class="log-column" *ngFor="let datelog of logDateWiseData">
+        <div class="head-date">{{datelog._id|date}}</div>
+        <div *ngFor="let log of datelog.logs" class="log-row">
+          <span *ngIf="log.task" matTooltip="{{log.task.summary}}" class="log-taskid">{{log.task.taskUniqueId}}</span>:
+          <span class="log-timespent">{{log.timeSpent|secondsToLogTime}}</span>
+        </div>
+        <div class="log-col-foot">
+          {{datelog.totalTimeSpent|secondsToLogTime}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>

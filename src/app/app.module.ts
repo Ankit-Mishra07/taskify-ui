@@ -36,6 +36,7 @@ import { SecondsToLogTimePipe } from './pipes/seconds-to-log-time.pipe';
 import { ConfirmationPopupComponent } from './common/confirmation-popup/confirmation-popup.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { WorklogReportComponent } from './pages/worklog-report/worklog-report.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     ProfileIconComponent,
     SecondsToLogTimePipe,
     ConfirmationPopupComponent,
+    WorklogReportComponent,
 
   ],
   imports: [
