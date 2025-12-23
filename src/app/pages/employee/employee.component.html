@@ -3,10 +3,16 @@
     
     <div class="full-width employee-table-container">
 
-        <div>
-            <mat-form-field>
-                <input matInput placeholder="Filter">
+        <div class="employee-head">
+            <mat-form-field class="filter-input">
+                <input matInput placeholder="Filter" (keyup)="searchEmlist()" [(ngModel)]="searchEmText">
+                <button mat-button matSuffix mat-icon-button (click)="clearEmSearch()">
+                    <mat-icon>close</mat-icon>
+                </button>
             </mat-form-field>
+            <div>
+                <button mat-flat-button class="btn-border" (click)="addNewEmployee()">Add new <mat-icon>add</mat-icon></button>
+            </div>
         </div>
         <div class="table-box">
             <table mat-table [dataSource]="dataSource">
@@ -15,10 +21,15 @@
                     <th mat-header-cell *matHeaderCellDef> ID </th>
                     <td mat-cell *matCellDef="let row"> {{row.employee_id}} </td>
                 </ng-container>
+
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef> Role </th>
+                    <td mat-cell *matCellDef="let row"> {{row.role}} </td>
+                </ng-container>
         
                 <ng-container matColumnDef="userName">
                     <th mat-header-cell *matHeaderCellDef> Name </th>
-                    <td mat-cell *matCellDef="let row"> {{row.userName}}% </td>
+                    <td mat-cell *matCellDef="let row"> {{row.userName}}</td>
                 </ng-container>
         
                 <ng-container matColumnDef="email">
@@ -33,7 +44,14 @@
         
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let row" [style.color]="row.color"> <button>Add</button> </td>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color">
+                        <button *ngIf="_commonService.isSuperAdmin" mat-icon-button (click)="editEmployee(row)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="_commonService.isSuperAdmin" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
                 </ng-container>
         
                 <tr mat-header-row *matHeaderRowDef="_employeeService.displayedEmployeeColumns"></tr>
@@ -41,11 +59,9 @@
                 </tr>
             </table>
         </div>
-    
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
 </div>
 
 
-
+<app-employee-create-edit *ngIf="_employeeService.showEmployeeCreateEditPopup" [mode]="_employeeService.employeeCreateEditMode" [editData]="_employeeService.employeeCreateEditData" (closePopup)="onEmClosePopup()" ></app-employee-create-edit>
 <app-loader *ngIf="isLoading"></app-loader>

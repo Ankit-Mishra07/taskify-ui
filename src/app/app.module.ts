@@ -35,6 +35,7 @@ import { ProfileIconComponent } from './common/profile-icon/profile-icon.compone
 import { SecondsToLogTimePipe } from './pipes/seconds-to-log-time.pipe';
 import { ConfirmationPopupComponent } from './common/confirmation-popup/confirmation-popup.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatSlideToggleModule,
     ToasterModule.forRoot()
   ],
   providers: [],

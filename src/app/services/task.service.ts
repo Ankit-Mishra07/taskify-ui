@@ -13,6 +13,8 @@ export class TaskService {
   taskPopupModeType = 'Task';
   taskPopupUpdateData:any;
   showCreateEditTaskPopup = false
+
+  searchTaskResult:any[] = [];
   
   constructor(
     public _webService: WebService
@@ -40,6 +42,10 @@ export class TaskService {
 
   fetchOneTaskById(taskId) {
     return this._webService.commonGetMethod(`/task/getonetask/${taskId}`);
+  }
+
+  searchTaskByText(search) {
+    return this._webService.commonGetMethod(`/task/searchtask/?search=${search}`);
   }
 
   combineSubtaskToTask(tasklist) {

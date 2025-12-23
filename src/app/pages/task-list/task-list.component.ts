@@ -129,7 +129,7 @@ export class TaskListComponent implements OnInit {
   }
 
   searchLoadedTask() {
-    this._taskService.all_task_subtask_list = this._taskService.all_task_subtask_list.filter(v => (v.summary.toLowerCase().includes(this.searchLoadedText.toLowerCase()) || v.taskUniqueId.toLowerCase().includes(this.searchLoadedText.toLowerCase())) );
+    this._taskService.all_task_subtask_list = this.backup_all_task_subtask_list.filter(v => (v.summary.toLowerCase().includes(this.searchLoadedText.toLowerCase()) || v.taskUniqueId.toLowerCase().includes(this.searchLoadedText.toLowerCase())) );
     if (!this.searchLoadedText) {
       this.clearLoadedSearch();
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
@@ -15,7 +15,7 @@ import { WorklogService } from 'src/app/services/worklog.service';
   templateUrl: './task-view-edit.component.html',
   styleUrls: ['./task-view-edit.component.scss']
 })
-export class TaskViewEditComponent implements OnInit {
+export class TaskViewEditComponent implements OnInit, OnDestroy {
 
   currentParamTaskId: string | null;
   currentQueryTasktype:string | null;
@@ -45,6 +45,8 @@ export class TaskViewEditComponent implements OnInit {
       this.currentQueryTasktype = params['type']
       if ((this.currentQueryTasktype == 'Task' || this.currentQueryTasktype == 'Bug')) {
         this.currentQueryTasktype = "parenttask";
+      }else {
+        this.currentQueryTasktype = 'subtask'
       }
     });
     this.fetchByIdAndType();
@@ -99,7 +101,7 @@ export class TaskViewEditComponent implements OnInit {
   }
 
   navigateSubTask(url) {
-    window.open(url +  '?type=subtask');
+    window.open(url +  '?type=Sub-Task');
   }
 
   editSubTask(subdata) {
@@ -159,6 +161,10 @@ export class TaskViewEditComponent implements OnInit {
     this._worklogService.worklogPopupMode = 'Create';
     this._worklogService.workLogEditData = null;
     this._worklogService.openWorklogPopup = true;
+  }
+
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
   }
 
 }

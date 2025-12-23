@@ -1,3 +1,66 @@
-<p>
-  employee-create-edit works!
-</p>
+<div class="modal-background-container">
+  <div class="modal-background">
+
+    <div class="employee-ce-container">
+
+      <div class="heading">
+        <p>{{mode == 'Create' ? 'Create' : 'Update'}} Employee</p>
+        <button mat-icon-button (click)="closeEmPopup()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+
+      <form [formGroup]="emForm" class="inputs-box">
+
+        <mat-form-field class="full-width">
+            <input class="user-name" matInput placeholder="Enter name" formControlName="userName" required>
+            <mat-error>
+              Name is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input class="email" matInput placeholder="Enter email" formControlName="email" required>
+            <mat-error>
+              valid email required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input class="role" matInput placeholder="Enter designation" formControlName="role" required>
+            <mat-error>
+              Designation required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input class="employee_id" matInput placeholder="Enter employee id" formControlName="employee_id" required>
+            <mat-error>
+              Employee id is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <input type="password" class="password" matInput placeholder="Create password" formControlName="password" required>
+            <mat-error>
+              Minimum 6 character required
+            </mat-error>
+        </mat-form-field>
+          <div class="toggle-box">
+            <mat-slide-toggle formControlName="isAdmin">Admin</mat-slide-toggle>
+            <mat-slide-toggle formControlName="isSuperAdmin">Super Admin</mat-slide-toggle>
+          </div>
+
+          <div class="btn-box">
+            <button mat-raised-button (click)="closeEmPopup()" type="button">Cancel</button>
+            <button [disabled]="isLoading" class="primary-button" (click)="onSaveEmployee()">{{mode == 'Create' ? 'Save' :
+              'Update'}}</button>
+          </div>
+          
+
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+
+<app-loader *ngIf="isLoading"></app-loader>

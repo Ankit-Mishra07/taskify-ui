@@ -8,12 +8,19 @@
         <button mat-button matPrefix mat-icon-button>
           <mat-icon>search</mat-icon>
         </button>
-        <input matInput placeholder="Search task">
-        <button mat-button matSuffix mat-icon-button>
+        <input matInput placeholder="Search task" (keyup)="onSearch()" [(ngModel)]="searchTaskText">
+        <button mat-button matSuffix mat-icon-button (click)="clearSearch()">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
       <button class="primary-button create-task-btn" (click)="createNewTask()"><mat-icon>add</mat-icon> Create</button>
+
+      <div class="search-result-box" *ngIf="_taskService.searchTaskResult.length && searchTaskText">
+        <div class="search-result-list" *ngFor="let res of _taskService.searchTaskResult" (click)="open_in_new(res)">
+            <span class="search-id">{{res.taskUniqueId}}</span>
+            <span class="search-sum">{{res.summary}}</span>
+        </div>
+      </div>
   </div>
 
   
