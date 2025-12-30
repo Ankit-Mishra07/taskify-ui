@@ -7,7 +7,8 @@ import { CommonService } from './common.service';
 })
 export class WebService {
 
-  baseUrl = 'http://localhost:3000/api'
+  // baseUrl = 'http://localhost:3000/api'
+  baseUrl = 'https://taskify-api-qsdy.onrender.com/api'
   token = this._commonService.getCookie('user_access');
   constructor(
     public _http: HttpClient,
