@@ -25,7 +25,11 @@
         background-color: $button-hover-background;
     }
 }
-
+.primary-button:disabled {
+    background: grey;
+    border: none;
+    cursor: no-drop;
+}
 .full-width {
     width: 100%;
 }

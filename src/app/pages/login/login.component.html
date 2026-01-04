@@ -13,7 +13,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput placeholder="Password" [formControl]="passwordFormControl">
+        <input type="password" matInput placeholder="Password" [formControl]="passwordFormControl">
         <mat-error *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
           Password must be at least 6 characters
         </mat-error>
@@ -21,6 +21,6 @@
           Password is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-    <button (click)="onLogin()" class="primary-button login-button">Login</button>
+    <button (click)="onLogin()" class="primary-button login-button" [disabled]="isLoading">{{isLoading ? 'Login...' : 'Login'}}</button>
   </div>
 </div>

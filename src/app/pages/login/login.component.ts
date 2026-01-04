@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
     Validators.minLength(6)
   ])
 
+  isLoading = false;
+
   constructor(
     public _webService: WebService,
     private toasterService: ToasterService,
@@ -47,7 +49,10 @@ export class LoginComponent implements OnInit {
       email: this.emailFormControl.value,
       password: this.passwordFormControl.value
     }
+    this.isLoading = true;
     this._webService.commonPostMethod('/user/login', payload).subscribe((response:any) => {
+
+      this.isLoading = false;
       if(response.success) {
         this.toasterService.pop('success', response.message);
         this._commonService.setCookie('user_access', response.data.token);
@@ -56,6 +61,9 @@ export class LoginComponent implements OnInit {
       }else {
         this.toasterService.pop('error', response.message);
       }
+    }, error => {
+      this.isLoading = false;
+      this.toasterService.pop('error', 'Something went wrong');
     })
   }
 

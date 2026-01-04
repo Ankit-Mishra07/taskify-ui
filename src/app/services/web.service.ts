@@ -24,7 +24,7 @@ export class WebService {
       let header = new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': this.token
+        'Authorization': this._commonService.getCookie('user_access')
       })
       return this._http.post(url, data, {
         headers: header
@@ -40,7 +40,7 @@ export class WebService {
       let header = new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': this.token
+        'Authorization': this._commonService.getCookie('user_access')
       })
       return this._http.patch(url, data, {
         headers: header
@@ -57,7 +57,7 @@ export class WebService {
       let header = new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': this.token
+        'Authorization': this._commonService.getCookie('user_access')
       })
       return this._http.get(url, {
         headers: header
@@ -73,7 +73,7 @@ export class WebService {
       let header = new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': this.token
+        'Authorization': this._commonService.getCookie('user_access')
       })
       return this._http.delete(url, {
         headers: header
